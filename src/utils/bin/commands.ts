@@ -156,7 +156,26 @@ export const reddit = async (args: string[]): Promise<string> => {
 };
 reddit.desc = 'Search Reddit for the provided query.';
 
-// Typical linux commands
+// Typical linux commands // 
+let currentDirectory = '~';
+
+// Mock File System
+const fileSystem: Record<string, string[]> = {
+  '~': [
+    'Desktop',
+    'Documents',
+    'Downloads',
+    'Pictures',
+    'Quantum_Research',
+    'Startup_Ideas',
+    'Toastmasters_Speeches',
+  ],
+  '~/Desktop': ['setup.exe', 'cool_background.png'],
+  '~/Documents': ['passwords.txt', 'todo.md'],
+  '~/Downloads': ['ram_download.zip', 'malware.sh'],
+  '~/Pictures': ['cat.jpg', 'dog.png'],
+};
+
 export const echo = async (args: string[]): Promise<string> => {
   if (!args.length) {
     return 'Usage: echo [string]. Example: echo hello world';
@@ -178,30 +197,60 @@ export const whoami = async (args: string[]): Promise<string> => {
 whoami.desc = 'Print the current user.';
 
 export const ls = async (args: string[]): Promise<string> => {
-  return `Desktop/     Documents/     Downloads/     Pictures/     Quantum_Research/     Startup_Ideas/     Toastmasters_Speeches/`;
+  const contents = fileSystem[currentDirectory] || [];
+  if (contents.length === 0) return '';
+
+  // Format with some spaces like a real terminal
+  return contents.join('     ');
 };
 ls.desc = 'List files and directories.';
 
 export const cd = async (args: string[]): Promise<string> => {
-  if (args.length === 0) return 'cd: missing operand';
-  const dir = args[0];
-  if (dir === 'Quantum_Research' || dir === 'Quantum_Research/') {
-    return 'cd: Quantum_Research: Access Denied. You need to understand superposition first.';
-  } else if (dir === 'Startup_Ideas' || dir === 'Startup_Ideas/') {
-    return 'cd: Startup_Ideas: It is a SaaS platform. That is all I can tell you right now... NDA bro.';
-  } else if (dir === 'Toastmasters_Speeches' || dir === 'Toastmasters_Speeches/') {
-    return 'cd: Toastmasters_Speeches: Warning - high levels of emotional depth and metaphors detected.';
-  } else if (dir === 'Desktop' || dir === 'Desktop/') {
-    return 'cd: Desktop: There is nothing here, I use a terminal for everything.';
-  } else if (dir === '..') {
-    return 'cd: You are already at the bottom of the rabbit hole.';
+  if (args.length === 0) {
+    currentDirectory = '~';
+    return '';
   }
-  return `cd: ${dir}: No such file or directory (wait, did you try 'ls' first?)`;
+
+  const dir = args[0].replace(/\/$/, ''); // Remove trailing slash
+
+  if (dir === 'Quantum_Research') {
+    return 'cd: Quantum_Research: Access Denied. You need to understand superposition first.';
+  } else if (dir === 'Startup_Ideas') {
+    return 'cd: Startup_Ideas: It is a SaaS platform. That is all I can tell you right now... NDA bro.';
+  } else if (dir === 'Toastmasters_Speeches') {
+    return 'cd: Toastmasters_Speeches: Warning - high levels of emotional depth and metaphors detected.';
+  }
+
+  if (dir === '..') {
+    if (currentDirectory === '~') {
+      return 'cd: You are already at the bottom of the rabbit hole.';
+    }
+    const parts = currentDirectory.split('/');
+    parts.pop();
+    currentDirectory = parts.join('/') || '~';
+    return '';
+  }
+
+  if (dir === '~') {
+    currentDirectory = '~';
+    return '';
+  }
+
+  // Handle absolute path from home
+  const targetPath = dir.startsWith('~/') ? dir :
+    (currentDirectory === '~' ? `~/${dir}` : `${currentDirectory}/${dir}`);
+
+  if (fileSystem[targetPath]) {
+    currentDirectory = targetPath;
+    return '';
+  }
+
+  return `cd: ${dir}: No such file or directory`;
 };
 cd.desc = 'Change directory. Usage: cd [directory].';
 
 export const pwd = async (args: string[]): Promise<string> => {
-  return '/home/guest/';
+  return currentDirectory.replace('~', '/home/guest');
 };
 pwd.desc = 'Print the current working directory.';
 
@@ -243,7 +292,26 @@ At this point... just use VS Code like a normal person.`;
 gui.desc = 'Switch to the Graphical User Interface.';
 
 export const mkdir = async (args?: string[]): Promise<string> => {
-  return `mkdir: cannot create directory. Read-only file system. Plus, I don't trust you.`;
+  if (args.length === 0) return 'mkdir: missing operand';
+  const dirName = args[0].replace(/\/$/, '');
+
+  if (!fileSystem[currentDirectory]) {
+    fileSystem[currentDirectory] = [];
+  }
+
+  if (fileSystem[currentDirectory].includes(dirName)) {
+    return `mkdir: cannot create directory '${dirName}': File exists`;
+  }
+
+  fileSystem[currentDirectory].push(dirName);
+
+  // Sort the contents so it looks nice
+  fileSystem[currentDirectory].sort();
+
+  const newDirPath = currentDirectory === '~' ? `~/${dirName}` : `${currentDirectory}/${dirName}`;
+  fileSystem[newDirPath] = [];
+
+  return '';
 };
 mkdir.desc = 'Make directories. Usage: mkdir [directory].';
 
