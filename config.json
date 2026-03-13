@@ -1,39 +1,39 @@
 {
-  "readmeUrl": "https://raw.githubusercontent.com/cveinnt/cveinnt/master/README.md",
-  "title": "LiveTerm",
-  "name": "John Doe",
-  "ascii": "liveterm",
+  "readmeUrl": "https://raw.githubusercontent.com/notdulain/notdulain/master/README.md",
+  "title": "Dulain Gunawardhana",
+  "name": "Dulain Gunawardhana",
+  "ascii": "dulain",
   "social": {
-    "github": "github",
-    "linkedin": "linkedin"
+    "github": "notdulain",
+    "linkedin": "dulain-nethwin-gunawardhana-41b251294"
   },
-  "email": "contact@email.com",
-  "ps1_hostname": "liveterm",
+  "email": "03dulain@example.com",
+  "ps1_hostname": "dulain",
   "ps1_username": "visitor",
-  "repo": "https://github.com/Cveinnt/LiveTerm",
-  "resume_url": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Resume.pdf",
+  "repo": "https://github.com/notdulain",
+  "resume_url": "/DulainGunawardhanaCV.pdf",
   "donate_urls": {
-    "paypal": "https://paypal.me/cveinnt",
-    "patreon": "https://patreon.com/cveinnt"
+    "paypal": "",
+    "patreon": ""
   },
   "colors": {
     "light": {
-      "background": "#FBF1C9",
-      "foreground": "#3C3836",
-      "yellow": "#D79921",
-      "green": "#98971A",
-      "gray": "#7C6F64",
-      "blue": "#458588",
-      "red": "#CA2124"
+      "background": "#f8f8f2",
+      "foreground": "#282a36",
+      "yellow": "#f1fa8c",
+      "green": "#50fa7b",
+      "gray": "#6272a4",
+      "blue": "#8be9fd",
+      "red": "#ff5555"
     },
     "dark": {
-      "background": "#2E3440",
-      "foreground": "#E5E9F0",
-      "yellow": "#5E81AC",
-      "green": "#A3BE8C",
-      "gray": "#88C0D0",
-      "blue": "#EBCB8B",
-      "red": "#BF616A"
+      "background": "#282a36",
+      "foreground": "#f8f8f2",
+      "yellow": "#f1fa8c",
+      "green": "#50fa7b",
+      "gray": "#6272a4",
+      "blue": "#bd93f9",
+      "red": "#ff5555"
     }
   }
 }

@@ -10,7 +10,7 @@ export const useHistory = (defaultValue: Array<History>) => {
     history,
     command,
     lastCommandIndex,
-    setHistory: (value: string) =>
+    setHistory: (value: string, cwd?: string) =>
       setHistory([
         ...history,
         {
@@ -18,6 +18,7 @@ export const useHistory = (defaultValue: Array<History>) => {
           date: new Date(),
           command,
           output: value,
+          cwd,
         },
       ]),
     setCommand,
