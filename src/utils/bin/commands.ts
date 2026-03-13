@@ -31,11 +31,13 @@ export const repo = async (args: string[]): Promise<string> => {
 // About
 export const about = async (args: string[]): Promise<string> => {
   return `Hi, I am ${config.name}. 
-Welcome to my website!
+I am a Computer Science Undergraduate at SLIIT, a Toastmasters leader, and a Quantum enthusiast!
+
 More about me:
 'sumfetch' - short summary.
 'resume' - my latest resume.
-'readme' - my github readme.`;
+'projects' - some of my key projects.
+'toastmasters' - my toastmasters journey.`;
 };
 
 export const resume = async (args: string[]): Promise<string> => {
@@ -43,13 +45,34 @@ export const resume = async (args: string[]): Promise<string> => {
   return 'Opening resume...';
 };
 
-// Donate
-export const donate = async (args: string[]): Promise<string> => {
-  return `thank you for your interest. 
-here are the ways you can support my work:
-- <u><a class="text-light-blue dark:text-dark-blue underline" href="${config.donate_urls.paypal}" target="_blank">paypal</a></u>
-- <u><a class="text-light-blue dark:text-dark-blue underline" href="${config.donate_urls.patreon}" target="_blank">patreon</a></u>
+export const projects = async (args: string[]): Promise<string> => {
+  return `My Key Projects:
+  
+- TMPL 2.0: A real-time live cricket scoring platform using Next.js, TS, and Firebase.
+- GymSync: Web-based Gym Management System built with Spring Boot, React, and MySQL.
+- Custom DSL & Compiler: A Domain-Specific Language and compiler for HTTP API testing.
+- Hextractor: Lightweight color picker tool for Windows using AutoHotkey 2.0.
+- Mochai Bot: DIY hardware project with ESP32 and OLED display.
 `;
+};
+
+export const toastmasters = async (args: string[]): Promise<string> => {
+  return `Toastmasters International
+
+I am the President of the SLIIT Toastmasters Club & Central Link Toastmasters Club.
+I've also served as a VP of Public Relations and Division J PR Manager.
+
+Speechwriting style: Psychological, Story-driven, Metaphorical.
+Wait... did I ever tell you about the sandcastle metaphor?
+How people build emotional structures in life, lose them, and learn to rebuild stronger?
+Ah, nevermind. This is a terminal, not therapy!
+`;
+};
+
+// Donate / Support
+export const donate = async (args: string[]): Promise<string> => {
+  return `I don't need your money... but if you have a Software Engineering Internship, we can talk!
+Check out my resume or contact me directly.`;
 };
 
 // Contact
@@ -60,13 +83,11 @@ export const email = async (args: string[]): Promise<string> => {
 
 export const github = async (args: string[]): Promise<string> => {
   window.open(`https://github.com/${config.social.github}/`);
-
   return 'Opening github...';
 };
 
 export const linkedin = async (args: string[]): Promise<string> => {
   window.open(`https://www.linkedin.com/in/${config.social.linkedin}/`);
-
   return 'Opening linkedin...';
 };
 
@@ -101,16 +122,24 @@ export const whoami = async (args: string[]): Promise<string> => {
 };
 
 export const ls = async (args: string[]): Promise<string> => {
-  return `a
-bunch
-of
-fake
-directories`;
+  return `Desktop/     Documents/     Downloads/     Pictures/     Quantum_Research/     Startup_Ideas/     Toastmasters_Speeches/`;
 };
 
 export const cd = async (args: string[]): Promise<string> => {
-  return `unfortunately, i cannot afford more directories.
-if you want to help, you can type 'donate'.`;
+  if (args.length === 0) return 'cd: missing operand';
+  const dir = args[0];
+  if (dir === 'Quantum_Research' || dir === 'Quantum_Research/') {
+    return 'cd: Quantum_Research: Access Denied. You need to understand superposition first.';
+  } else if (dir === 'Startup_Ideas' || dir === 'Startup_Ideas/') {
+    return 'cd: Startup_Ideas: It is a SaaS platform. That is all I can tell you right now... NDA bro.';
+  } else if (dir === 'Toastmasters_Speeches' || dir === 'Toastmasters_Speeches/') {
+    return 'cd: Toastmasters_Speeches: Warning - high levels of emotional depth and metaphors detected.';
+  } else if (dir === 'Desktop' || dir === 'Desktop/') {
+    return 'cd: Desktop: There is nothing here, I use a terminal for everything.';
+  } else if (dir === '..') {
+    return 'cd: You are already at the bottom of the rabbit hole.';
+  }
+  return `cd: ${dir}: No such file or directory (wait, did you try 'ls' first?)`;
 };
 
 export const date = async (args: string[]): Promise<string> => {
@@ -138,17 +167,44 @@ export const sudo = async (args?: string[]): Promise<string> => {
   return `Permission denied: with little power comes... no responsibility? `;
 };
 
+export const gui = async (args?: string[]): Promise<string> => {
+  return `Error 404: Graphical User Interface not found. 
+At this point... just use VS Code like a normal person.`;
+};
+
+export const mkdir = async (args?: string[]): Promise<string> => {
+  return `mkdir: cannot create directory. Read-only file system. Plus, I don't trust you.`;
+};
+
+export const rm = async (args?: string[]): Promise<string> => {
+  return `rm: access denied. Nice try! I'm not letting you delete my portfolio.`;
+};
+
+export const touch = async (args?: string[]): Promise<string> => {
+  return `touch: permission denied. Please don't touch me without consent.`;
+};
+
+export const cat = async (args?: string[]): Promise<string> => {
+  return `Meow.
+...
+Just kidding, I'm not a cat person.`;
+};
+
+export const nano = async (args?: string[]): Promise<string> => {
+  return `Opening nano...
+Just kidding. Who uses nano anyway?`;
+};
+
 // Banner
 export const banner = (args?: string[]): string => {
   return `
-█████        ███                       ███████████                                   
-░░███        ░░░                       ░█░░░███░░░█                                   
- ░███        ████  █████ █████  ██████ ░   ░███  ░   ██████  ████████  █████████████  
- ░███       ░░███ ░░███ ░░███  ███░░███    ░███     ███░░███░░███░░███░░███░░███░░███ 
- ░███        ░███  ░███  ░███ ░███████     ░███    ░███████  ░███ ░░░  ░███ ░███ ░███ 
- ░███      █ ░███  ░░███ ███  ░███░░░      ░███    ░███░░░   ░███      ░███ ░███ ░███ 
- ███████████ █████  ░░█████   ░░██████     █████   ░░██████  █████     █████░███ █████
-░░░░░░░░░░░ ░░░░░    ░░░░░     ░░░░░░     ░░░░░     ░░░░░░  ░░░░░     ░░░░░ ░░░ ░░░░░ 
+██████╗ ██╗   ██╗██╗      █████╗ ██╗███╗   ██╗███████╗    ████████╗███████╗██████╗ ███╗   ███╗██╗███╗   ██╗ █████╗ ██╗     
+██╔══██╗██║   ██║██║     ██╔══██╗██║████╗  ██║██╔════╝    ╚══██╔══╝██╔════╝██╔══██╗████╗ ████║██║████╗  ██║██╔══██╗██║     
+██║  ██║██║   ██║██║     ███████║██║██╔██╗ ██║███████╗       ██║   █████╗  ██████╔╝██╔████╔██║██║██╔██╗ ██║███████║██║     
+██║  ██║██║   ██║██║     ██╔══██║██║██║╚██╗██║╚════██║       ██║   ██╔══╝  ██╔══██╗██║╚██╔╝██║██║██║╚██╗██║██╔══██║██║     
+██████╔╝╚██████╔╝███████╗██║  ██║██║██║ ╚████║███████║       ██║   ███████╗██║  ██║██║ ╚═╝ ██║██║██║ ╚████║██║  ██║███████╗
+╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝╚══════╝       ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝
+                                                                                                                           
 
 Type 'help' to see the list of available commands.
 Type 'sumfetch' to display summary.

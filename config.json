@@ -1,20 +1,20 @@
 {
-  "readmeUrl": "https://raw.githubusercontent.com/cveinnt/cveinnt/master/README.md",
-  "title": "LiveTerm",
-  "name": "John Doe",
-  "ascii": "liveterm",
+  "readmeUrl": "https://raw.githubusercontent.com/notdulain/notdulain/master/README.md",
+  "title": "Dulain Gunawardhana",
+  "name": "Dulain Gunawardhana",
+  "ascii": "dulain",
   "social": {
-    "github": "github",
-    "linkedin": "linkedin"
+    "github": "notdulain",
+    "linkedin": "dulainnethwin"
   },
-  "email": "contact@email.com",
-  "ps1_hostname": "liveterm",
+  "email": "dulain.gunawardhana@example.com",
+  "ps1_hostname": "dulain",
   "ps1_username": "visitor",
-  "repo": "https://github.com/Cveinnt/LiveTerm",
-  "resume_url": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Resume.pdf",
+  "repo": "https://github.com/notdulain",
+  "resume_url": "/DulainGunawardhanaCV.pdf",
   "donate_urls": {
-    "paypal": "https://paypal.me/cveinnt",
-    "patreon": "https://patreon.com/cveinnt"
+    "paypal": "",
+    "patreon": ""
   },
   "colors": {
     "light": {
