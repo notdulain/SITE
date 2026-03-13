@@ -157,24 +157,7 @@ export const reddit = async (args: string[]): Promise<string> => {
 reddit.desc = 'Search Reddit for the provided query.';
 
 // Typical linux commands // 
-let currentDirectory = '~';
-
-// Mock File System
-const fileSystem: Record<string, string[]> = {
-  '~': [
-    'Desktop',
-    'Documents',
-    'Downloads',
-    'Pictures',
-    'Quantum_Research',
-    'Startup_Ideas',
-    'Toastmasters_Speeches',
-  ],
-  '~/Desktop': ['setup.exe', 'cool_background.png'],
-  '~/Documents': ['passwords.txt', 'todo.md'],
-  '~/Downloads': ['ram_download.zip', 'malware.sh'],
-  '~/Pictures': ['cat.jpg', 'dog.png'],
-};
+import { fsState } from '../fileSystem';
 
 export const echo = async (args: string[]): Promise<string> => {
   if (!args.length) {
@@ -197,7 +180,7 @@ export const whoami = async (args: string[]): Promise<string> => {
 whoami.desc = 'Print the current user.';
 
 export const ls = async (args: string[]): Promise<string> => {
-  const contents = fileSystem[currentDirectory] || [];
+  const contents = fsState.fileSystem[fsState.currentDirectory] || [];
   if (contents.length === 0) return '';
 
   // Format with some spaces like a real terminal
@@ -207,7 +190,7 @@ ls.desc = 'List files and directories.';
 
 export const cd = async (args: string[]): Promise<string> => {
   if (args.length === 0) {
-    currentDirectory = '~';
+    fsState.currentDirectory = '~';
     return '';
   }
 
@@ -222,26 +205,26 @@ export const cd = async (args: string[]): Promise<string> => {
   }
 
   if (dir === '..') {
-    if (currentDirectory === '~') {
+    if (fsState.currentDirectory === '~') {
       return 'cd: You are already at the bottom of the rabbit hole.';
     }
-    const parts = currentDirectory.split('/');
+    const parts = fsState.currentDirectory.split('/');
     parts.pop();
-    currentDirectory = parts.join('/') || '~';
+    fsState.currentDirectory = parts.join('/') || '~';
     return '';
   }
 
   if (dir === '~') {
-    currentDirectory = '~';
+    fsState.currentDirectory = '~';
     return '';
   }
 
   // Handle absolute path from home
   const targetPath = dir.startsWith('~/') ? dir :
-    (currentDirectory === '~' ? `~/${dir}` : `${currentDirectory}/${dir}`);
+    (fsState.currentDirectory === '~' ? `~/${dir}` : `${fsState.currentDirectory}/${dir}`);
 
-  if (fileSystem[targetPath]) {
-    currentDirectory = targetPath;
+  if (fsState.fileSystem[targetPath]) {
+    fsState.currentDirectory = targetPath;
     return '';
   }
 
@@ -250,7 +233,7 @@ export const cd = async (args: string[]): Promise<string> => {
 cd.desc = 'Change directory. Usage: cd [directory].';
 
 export const pwd = async (args: string[]): Promise<string> => {
-  return currentDirectory.replace('~', '/home/guest');
+  return fsState.currentDirectory.replace('~', '/home/guest');
 };
 pwd.desc = 'Print the current working directory.';
 
@@ -292,24 +275,24 @@ At this point... just use VS Code like a normal person.`;
 gui.desc = 'Switch to the Graphical User Interface.';
 
 export const mkdir = async (args?: string[]): Promise<string> => {
-  if (args.length === 0) return 'mkdir: missing operand';
+  if (!args || args.length === 0) return 'mkdir: missing operand';
   const dirName = args[0].replace(/\/$/, '');
 
-  if (!fileSystem[currentDirectory]) {
-    fileSystem[currentDirectory] = [];
+  if (!fsState.fileSystem[fsState.currentDirectory]) {
+    fsState.fileSystem[fsState.currentDirectory] = [];
   }
 
-  if (fileSystem[currentDirectory].includes(dirName)) {
+  if (fsState.fileSystem[fsState.currentDirectory].includes(dirName)) {
     return `mkdir: cannot create directory '${dirName}': File exists`;
   }
 
-  fileSystem[currentDirectory].push(dirName);
+  fsState.fileSystem[fsState.currentDirectory].push(dirName);
 
   // Sort the contents so it looks nice
-  fileSystem[currentDirectory].sort();
+  fsState.fileSystem[fsState.currentDirectory].sort();
 
-  const newDirPath = currentDirectory === '~' ? `~/${dirName}` : `${currentDirectory}/${dirName}`;
-  fileSystem[newDirPath] = [];
+  const newDirPath = fsState.currentDirectory === '~' ? `~/${dirName}` : `${fsState.currentDirectory}/${dirName}`;
+  fsState.fileSystem[newDirPath] = [];
 
   return '';
 };
