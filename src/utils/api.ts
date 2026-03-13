@@ -23,8 +23,14 @@ export const getWeather = async (city: string) => {
 };
 
 export const getQuote = async () => {
-  const { data } = await axios.get('https://api.quotable.io/random');
-  return {
-    quote: `“${data.content}” — ${data.author}`,
-  };
+  try {
+    const { data } = await axios.get('https://dummyjson.com/quotes/random');
+    return {
+      quote: `“${data.quote}” — ${data.author}`,
+    };
+  } catch (error) {
+    return {
+      quote: `"The best way to predict the future is to invent it." — Alan Kay`,
+    };
+  }
 };

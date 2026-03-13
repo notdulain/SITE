@@ -43,5 +43,7 @@ const sumfetch = async (args: string[]): Promise<string> => {
   }
 };
 
+sumfetch.desc = 'Display summary.';
+
 export default sumfetch;
 
