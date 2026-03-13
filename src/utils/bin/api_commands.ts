@@ -7,7 +7,7 @@ import { getQuote } from '../api';
 import { getReadme } from '../api';
 import { getWeather } from '../api';
 
-export const projects = async (args: string[]): Promise<string> => {
+export const repos = async (args: string[]): Promise<string> => {
   const projects = await getProjects();
   return projects
     .map(
@@ -16,7 +16,7 @@ export const projects = async (args: string[]): Promise<string> => {
     )
     .join('\n');
 };
-projects.desc = 'List some of my GitHub projects.';
+repos.desc = 'List some of my GitHub repositories.';
 
 export const quote = async (args: string[]): Promise<string> => {
   const data = await getQuote();

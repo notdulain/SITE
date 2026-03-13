@@ -12,7 +12,9 @@ export const Ps1 = ({ cwd }: { cwd?: string }) => {
       <span className="text-light-green dark:text-dark-green">
         {config.ps1_hostname}
       </span>
-      <span className="text-light-gray dark:text-dark-gray">:$ {cwd || fsState.currentDirectory} </span>
+      <span className="text-light-gray dark:text-dark-gray">
+        :$ {cwd || fsState.currentDirectory}{' '}
+      </span>
     </div>
   );
 };
