@@ -2,16 +2,17 @@ import React from 'react';
 import { History as HistoryInterface } from './interface';
 import { Ps1 } from '../Ps1';
 
-export const History: React.FC<{ history: Array<HistoryInterface> }> = ({
-  history,
-}) => {
+export const History: React.FC<{
+  history: Array<HistoryInterface>;
+  username: string;
+}> = ({ history, username }) => {
   return (
     <>
       {history.map((entry: HistoryInterface, index: number) => (
         <div key={entry.command + index}>
           <div className="flex flex-row space-x-2">
             <div className="flex-shrink">
-              <Ps1 cwd={entry.cwd || '~'} />
+              <Ps1 cwd={entry.cwd || '~'} username={username} />
             </div>
 
             <div className="flex-grow">{entry.command}</div>

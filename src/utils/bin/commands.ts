@@ -2,6 +2,7 @@
 
 import * as bin from './index';
 import config from '../../../config.json';
+import { getStoredUsername } from '../terminalProfile';
 
 // Help
 interface Command {
@@ -175,7 +176,7 @@ export const echo = async (args: string[]): Promise<string> => {
 echo.desc = 'Print the provided string.';
 
 export const whoami = async (args: string[]): Promise<string> => {
-  return `${config.ps1_username}`;
+  return `you're ${getStoredUsername()}`;
 };
 whoami.desc = 'Print the current user.';
 
