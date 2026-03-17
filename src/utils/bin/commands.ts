@@ -49,6 +49,12 @@ export const repo = async (args: string[]): Promise<string> => {
 };
 repo.desc = 'Open the GitHub repository in your browser.';
 
+export const portfolio = async (args: string[]): Promise<string> => {
+  window.open(`${config.portfolio_url}`);
+  return 'Opening portfolio website...';
+};
+portfolio.desc = 'Open the portfolio website in your browser.';
+
 // About
 export const about = async (args: string[]): Promise<string> => {
   return `Hi, I am ${config.name}. 
