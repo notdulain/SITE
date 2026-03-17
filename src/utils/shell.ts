@@ -11,6 +11,7 @@ export const shell = async (
 ) => {
   const args = command.split(' ');
   args[0] = args[0].toLowerCase();
+  const requiresRootAccess = args[0].startsWith('./');
 
   const currentCwd = fsState.currentDirectory;
 
@@ -18,6 +19,8 @@ export const shell = async (
     clearHistory();
   } else if (command === '') {
     setHistory('', currentCwd);
+  } else if (requiresRootAccess) {
+    setHistory('root access needed, try sudo', currentCwd);
   } else if (Object.keys(bin).indexOf(args[0]) === -1) {
     setHistory(
       `shell: command not found: ${args[0]}. Try 'help' to get started.`,

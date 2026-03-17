@@ -9,6 +9,7 @@ export const Input = ({
   containerRef,
   command,
   history,
+  username,
   lastCommandIndex,
   setCommand,
   setHistory,
@@ -81,7 +82,7 @@ export const Input = ({
   return (
     <div className="flex flex-row space-x-2">
       <label htmlFor="prompt" className="flex-shrink">
-        <Ps1 />
+        <Ps1 username={username} />
       </label>
 
       <input

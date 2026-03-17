@@ -2,6 +2,7 @@
 
 import * as bin from './index';
 import config from '../../../config.json';
+import { getStoredUsername } from '../terminalProfile';
 
 // Help
 interface Command {
@@ -175,7 +176,7 @@ export const echo = async (args: string[]): Promise<string> => {
 echo.desc = 'Print the provided string.';
 
 export const whoami = async (args: string[]): Promise<string> => {
-  return `${config.ps1_username}`;
+  return `you're ${getStoredUsername()}`;
 };
 whoami.desc = 'Print the current user.';
 
@@ -248,7 +249,7 @@ export const vi = async (args: string[]): Promise<string> => {
 vi.desc = 'Open the vi text editor.';
 
 export const vim = async (args: string[]): Promise<string> => {
-  return `'vim' is so outdated. how about 'nvim'?`;
+  return `root access needed, try sudo`;
 };
 vim.desc = 'Open the vim text editor.';
 
@@ -345,7 +346,7 @@ meow!`,
 cat.desc = 'Concatenate and display file contents... or maybe just a cat.';
 
 export const nano = async (args?: string[]): Promise<string> => {
-  return `at this point, just use vscode.`;
+  return `root access needed, try sudo`;
 };
 nano.desc = 'Open the nano text editor.';
 
